@@ -34,7 +34,6 @@ func writeJS(cfg *Config) {
 			js.build(row)
 
 			file := fmt.Sprintf(`output/%s-%s.js`, network, name)
-			log.J(file, js.buf.Len())
 			writeFile(file, js.buf.Bytes())
 		}
 	}
@@ -45,7 +44,7 @@ func (js *JS) serverAddr(server string, withFallback bool) string {
 	if server == `direct` {
 		return `DIRECT`
 	}
-	if server == `reject` || server == `deny` {
+	if server == `reject` {
 		return `PROXY 0.0.0.0:0`
 	}
 

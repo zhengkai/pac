@@ -23,9 +23,16 @@ type List struct {
 }
 
 type Server struct {
-	Socks5 string `json:"socks5"`
-	// VMess  string `json:"vmess"`
+	Socks5   string   `json:"socks5"`
+	VMess    *VMess   `json:"vmess"`
 	Fallback []string `json:"fallback"`
+}
+
+type VMess struct {
+	Host   string `json:"host"`
+	Port   uint32 `json:"port"`
+	UUID   string `json:"uuid"`
+	Domain string `json:"domain"`
 }
 
 type Config struct {

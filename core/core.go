@@ -2,8 +2,6 @@
 package core
 
 import (
-	"fmt"
-
 	"github.com/zhengkai/pac/core/log"
 )
 
@@ -20,6 +18,5 @@ func Run() {
 	}
 
 	writeJS(cfg)
-
-	fmt.Println(`core test`)
+	writeClash(cfg)
 }

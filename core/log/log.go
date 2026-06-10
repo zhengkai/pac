@@ -6,6 +6,10 @@ import (
 	"os"
 )
 
+func BR() {
+	fmt.Fprintln(os.Stdout)
+}
+
 func J(a ...any) {
 	fmt.Fprintln(os.Stdout, a...)
 }

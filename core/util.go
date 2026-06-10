@@ -14,6 +14,8 @@ import (
 
 const xattrHashKey = `user.sha256hash`
 
+var specialServer = []string{`direct`, `reject`}
+
 func unique(ss []string) []string {
 	m := make(map[string]struct{}, len(ss))
 
@@ -71,13 +73,13 @@ func writeFile(file string, ab []byte) error {
 	hash := sha256.Sum256(ab)
 
 	buf := make([]byte, sha256.Size)
-	size, err := unix.Getxattr(file, xattrHashKey, buf)
+	_, err := unix.Getxattr(file, xattrHashKey, buf)
 	if err == nil && bytes.Compare(buf, hash[:]) == 0 {
 		// hash 一致，无需写入
-		log.J(`skip write`, file)
+		log.J(`skip write`, file, len(ab), "\n")
 		return nil
 	}
-	log.J(`write file`, file, err, size)
+	log.J(`write file`, file, len(ab), err, "\n")
 
 	fh, err := os.CreateTemp(path.Dir(file), `.pac-*.tmp`)
 	if err != nil {
