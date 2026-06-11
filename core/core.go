@@ -9,11 +9,9 @@ func Run() {
 
 	lanIP = getLanIP()
 
-	cfgFile := `data/config.json`
-
-	cfg, err := LoadCfg(cfgFile)
+	cfg, err := LoadCfg(configFile)
 	if err != nil {
-		log.W(`load config fail:`, cfgFile, err)
+		log.W(`load config fail:`, configFile, err)
 		return
 	}
 

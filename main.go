@@ -1,6 +1,8 @@
 package main
 
-import "github.com/zhengkai/pac/core"
+import (
+	"github.com/zhengkai/pac/core"
+)
 
 func main() {
 

@@ -4,7 +4,7 @@ dev: build
 	./pac
 
 build:
-	go build .
+	CGO_ENABLED=0 go build .
 
 .PHONY: proto
 proto:

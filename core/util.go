@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/zhengkai/pac/core/log"
@@ -13,8 +14,6 @@ import (
 )
 
 const xattrHashKey = `user.sha256hash`
-
-var specialServer = []string{`direct`, `reject`}
 
 func unique(ss []string) []string {
 	m := make(map[string]struct{}, len(ss))
@@ -70,6 +69,8 @@ func getLanIP() string {
 
 func writeFile(file string, ab []byte) error {
 
+	file = filepath.Join(outputDir, file)
+
 	hash := sha256.Sum256(ab)
 
 	buf := make([]byte, sha256.Size)
@@ -79,7 +80,7 @@ func writeFile(file string, ab []byte) error {
 		log.J(`skip write`, file, len(ab), "\n")
 		return nil
 	}
-	log.J(`write file`, file, len(ab), err, "\n")
+	log.J(`write file`, file, len(ab), "\n")
 
 	fh, err := os.CreateTemp(path.Dir(file), `.pac-*.tmp`)
 	if err != nil {
@@ -94,5 +95,9 @@ func writeFile(file string, ab []byte) error {
 	fh.Write(ab)
 	fh.Close()
 
-	return os.Rename(tmpName, file)
+	err = os.Rename(tmpName, file)
+	if err != nil {
+		os.Remove(tmpName)
+	}
+	return err
 }

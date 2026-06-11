@@ -46,7 +46,7 @@ func writeClash(cfg *Config) {
 			Config: *cfg,
 		}
 		c.run(name, list)
-		file := fmt.Sprintf(`output/clash-%s.yaml`, name)
+		file := fmt.Sprintf(`clash-%s.yaml`, name)
 		writeFile(file, c.buf.Bytes())
 	}
 }

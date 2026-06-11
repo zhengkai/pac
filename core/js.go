@@ -33,7 +33,7 @@ func writeJS(cfg *Config) {
 			}
 			js.build(row)
 
-			file := fmt.Sprintf(`output/%s-%s.js`, network, name)
+			file := fmt.Sprintf(`%s-%s.js`, network, name)
 			writeFile(file, js.buf.Bytes())
 		}
 	}
