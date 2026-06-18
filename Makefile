@@ -1,7 +1,7 @@
 SHELL:=/usr/bin/env bash
 
 dev: build
-	./pac
+	./pac -config-file=data/config.json
 
 build:
 	CGO_ENABLED=0 go build .

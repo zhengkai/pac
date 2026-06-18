@@ -10,13 +10,6 @@ import (
 	"github.com/zhengkai/pac/core/log"
 )
 
-type Rule struct {
-	Server string   `json:"server"`
-	File   []string `json:"file"`
-	Extra  []string `json:"extra"`
-	domain []string
-}
-
 type List struct {
 	Rule  []*Rule `json:"rule"`
 	Final string  `json:"final"`
@@ -64,6 +57,7 @@ func LoadCfg(file string) (*Config, error) {
 
 func parseCfg(cfg *Config, dir string) error {
 	for name, v := range cfg.List {
+		log.BR()
 		for _, r := range v.Rule {
 			for _, f := range r.File {
 				re, err := loadDomain(path.Join(dir, f))

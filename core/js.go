@@ -91,6 +91,9 @@ func (js *JS) build(list *List) {
 	js.w("\tconst host = '.' + raw;")
 
 	for idx, r := range list.Rule {
+		if !r.CanPAC() {
+			continue
+		}
 		if idx > 0 {
 			js.br()
 		}

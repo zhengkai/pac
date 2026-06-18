@@ -15,30 +15,6 @@ type Clash struct {
 	serverMap map[string]*Server
 }
 
-/*
-proxies:
-  - name: doll
-    type: vmess
-    server: 6.7.8.9
-    port: 53005
-    uuid: ffff
-    alterId: 0
-    cipher: auto
-    tls: true
-    servername: doll.9farm.com
-    skip-cert-verify: false
-
-proxy-groups:
-  - name: Proxy
-    type: select
-    proxies:
-      - doll
-
-rules:
-  - DOMAIN-SUFFIX,google.com,Proxy
-  - MATCH,DIRECT
-*/
-
 func writeClash(cfg *Config) {
 
 	for name, list := range cfg.List {
@@ -62,6 +38,9 @@ func (c *Clash) scanServer(list *List) {
 	m := make(map[string]bool)
 	c.serverMap = make(map[string]*Server)
 	for _, r := range list.Rule {
+		if !r.CanClash() {
+			continue
+		}
 		m[r.Server] = true
 		s, ok := c.Server[r.Server]
 		if ok {
