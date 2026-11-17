@@ -134,12 +134,10 @@ func (c *Clash) buildRule(list *List) {
 	c.w(`rules:`)
 
 	for _, v := range list.Rule {
-		c.br()
 		for _, domain := range v.domain {
 			c.wf(`  - DOMAIN-SUFFIX,%s,%s`, domain, c.groupName(v.Server))
 
 		}
 	}
-	c.br()
 	c.wf(`  - MATCH,%s`, list.Final)
 }
